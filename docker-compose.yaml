@@ -16,10 +16,6 @@ services:
       - MOLECULER_LOG_LEVEL=info
       - 'ROCKETCHAT_LICENSE=${ENTERPRISE_LICENSE}'
       - OVERWRITE_SETTING_Log_Level=2
-    expose:
-    - 3000
-    ports:
-    - "3000:3000"
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     depends_on:
@@ -151,7 +147,7 @@ services:
 
   mongo:
     image: docker.io/bitnami/mongodb:7.0
-    restart: unless-stopped
+    restart: on-failure
     environment:
       MONGODB_REPLICA_SET_MODE: primary
       MONGODB_REPLICA_SET_NAME: ${MONGODB_REPLICA_SET_NAME:-rs0}
@@ -161,9 +157,6 @@ services:
       MONGODB_ADVERTISED_HOSTNAME: ${MONGODB_ADVERTISED_HOSTNAME:-mongo}
       MONGODB_ENABLE_JOURNAL: ${MONGODB_ENABLE_JOURNAL:-true}
       ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD:-yes}
-      BIND_IP: 0.0.0.0
-    ports:
-      - "27017:27017"
 
   nats:
     image: nats:2.6-alpine
