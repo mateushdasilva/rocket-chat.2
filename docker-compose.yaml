@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   rocketchat:
+    image: registry.rocket.chat/rocketchat/rocket.chat:7.5.0
     platform: linux/amd64
     build:
       dockerfile: ${RC_DOCKERFILE}
